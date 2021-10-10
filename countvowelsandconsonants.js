@@ -1,14 +1,14 @@
-const vowels = ['a', 'e', 'i', 'o', 'u'];
-
+const vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
 function countVowels(sentence) {
-  let vowelCount = 0;
-  let consonantCount = 0;
+  let vowelcounts = 0;
+  let consocounts = 0;
   for (let i = 0; i < vowels.length; i++) {
-    if (vowels.toLowerCase().includes(sentence[i]))
-      vowelCount++;
-    else
-      consonantCount++;
-
+    if (vowels.includes(sentence[i])) {
+      vowelcounts++;
+    }
+    else {
+      consocounts++;
+    }
   }
-  return console.log(vowelCount, consonantCount);
+  return console.log(vowelcounts, consocounts);
 }
