@@ -24,11 +24,11 @@ function bubbleSort(arr){
         if(!isSwapped){
         break;
         }
-        return arr;
+        
     }
     
-    // Print the array
-    console.log(arr)
+    // Return  the array
+    return arr;
     }
     
     
