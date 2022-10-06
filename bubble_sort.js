@@ -24,6 +24,7 @@ function bubbleSort(arr){
         if(!isSwapped){
         break;
         }
+        return arr;
     }
     
     // Print the array
