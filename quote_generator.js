@@ -10,6 +10,8 @@ const quote_generator = () => {
             let quote = data[RandomQuotes].text;
             console.log(quote);
         })
-        .catch((err) => console.log(err));
+        .catch(() => {
+            if (err) throw err;
+        });
     return quote;
 };
