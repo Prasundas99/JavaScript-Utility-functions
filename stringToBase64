@@ -1,0 +1,56 @@
+function stringToBase64(inputString) {
+    // Define the Base64 character mapping
+    const base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+    // Filter out non-alphanumeric characters and whitespace
+    const filteredString = inputString.replace(/[^a-zA-Z0-9\s]/g, "");
+
+    // Initialize variables
+    const result = [];
+    let currentBits = 0;
+    let numBits = 0;
+
+    // Convert the filtered input string to bytes
+    const utf8Bytes = unescape(encodeURIComponent(filteredString));
+
+    // Iterate through each byte in the filtered input data
+    for (const char of utf8Bytes) {
+        // Convert the character to its Unicode code point
+        const byte = char.charCodeAt(0);
+
+        // Shift the currentBits left by 8 bits and add the new byte
+        currentBits = (currentBits << 8) | byte;
+        numBits += 8;
+
+        // While we have at least 6 bits, extract and encode them
+        while (numBits >= 6) {
+            numBits -= 6;
+            // Extract the top 6 bits
+            const index = (currentBits >> numBits) & 0x3F;
+            result.push(base64Chars[index]);
+        }
+    }
+
+    // Handle any remaining bits (less than 6 bits)
+    if (numBits > 0) {
+        // Pad with zeros to make a multiple of 6 bits
+        currentBits <<= 6 - numBits;
+        const index = currentBits & 0x3F;
+        result.push(base64Chars[index]);
+    }
+
+    // Add padding '=' characters if necessary
+    while (result.length % 4 !== 0) {
+        result.push('=');
+    }
+
+    // Join the Base64 characters to form the final encoded string
+    const base64Data = result.join('');
+
+    return base64Data;
+}
+
+// Example usage:
+const inputString = "Hello, this is a string to be encoded in Base64. #$%^";
+const base64Result = stringToBase64(inputString);
+console.log("Base64 Encoded String:", base64Result);
